@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Sentry
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        SentrySDK.start { options in
+            options.dsn = "https://48005a93a236f1e3e23f0e0f80a538bb@o4507419638824960.ingest.us.sentry.io/4507702607478784"
+            options.debug = false // Enabled debug when first installing is always helpful
+//            options.enableTracing = true 
+            options.tracesSampleRate = 1.0
+
+            // Uncomment the following lines to add more data to your events
+            // options.attachScreenshot = true // This adds a screenshot to the error events
+            // options.attachViewHierarchy = true // This adds the view hierarchy to the error events
+        }
+        // Remove the next line after confirming that your Sentry integration is working.
+//        SentrySDK.capture(message: "This app uses Sentry! :)")
+
         // Override point for customization after application launch.
         
         
