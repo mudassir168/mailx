@@ -1,7 +1,7 @@
 //
 //  TOCropView.m
 //
-//  Copyright 2015-2018 Timothy Oliver. All rights reserved.
+//  Copyright 2015-2024 Timothy Oliver. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to
@@ -1080,7 +1080,6 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
         frame.size.height = frame.size.width;
     } else {
         frame.size.height = ceilf(cropBoxFrame.size.height * scale);
-        frame.size.height = MIN(imageSize.height, frame.size.height);
     }
     frame.size.height = MIN(imageSize.height, frame.size.height);
 
@@ -1404,9 +1403,12 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
         return;
     }
     
+    BOOL zoomOut = NO;
+
     // Passing in an empty size will revert back to the image aspect ratio
     if (aspectRatio.width < FLT_EPSILON && aspectRatio.height < FLT_EPSILON) {
         aspectRatio = (CGSize){self.imageSize.width, self.imageSize.height};
+        zoomOut = YES; // Prevent from steadily zooming in when cycling between alternate aspectRatios and original
     }
 
     CGRect boundsFrame = self.contentBounds;
@@ -1419,7 +1421,6 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     else
         cropBoxIsPortrait = aspectRatio.width < aspectRatio.height;
 
-    BOOL zoomOut = NO;
     if (cropBoxIsPortrait) {
         CGFloat newWidth = floorf(cropBoxFrame.size.height * (aspectRatio.width/aspectRatio.height));
         CGFloat delta = cropBoxFrame.size.width - newWidth;
