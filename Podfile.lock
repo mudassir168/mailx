@@ -1,10 +1,12 @@
 PODS:
-  - Alamofire (5.4.3)
-  - ObjectMapper (4.2.0)
-  - Reachability (3.2)
-  - SVProgressHUD (2.2.5)
-  - SwiftyJSON (5.0.1)
-  - TOCropViewController (2.6.0)
+  - Alamofire (5.9.1)
+  - ObjectMapper (4.4.2)
+  - Reachability (3.7.6)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
+  - SwiftyJSON (5.0.2)
+  - TOCropViewController (2.7.4)
 
 DEPENDENCIES:
   - Alamofire
@@ -24,13 +26,13 @@ SPEC REPOS:
     - TOCropViewController
 
 SPEC CHECKSUMS:
-  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
-  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
-  TOCropViewController: 3105367e808b7d3d886a74ff59bf4804e7d3ab38
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
+  Reachability: fd0ecd23705e2599e4cceeb943222ae02296cbc6
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
+  SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
 
 PODFILE CHECKSUM: ceb408396457bbd8c345fb846dc78bdd7b8b6812
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.15.2

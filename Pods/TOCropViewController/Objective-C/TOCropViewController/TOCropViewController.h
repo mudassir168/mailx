@@ -1,7 +1,7 @@
 //
 //  TOCropViewController.h
 //
-//  Copyright 2015-2018 Timothy Oliver. All rights reserved.
+//  Copyright 2015-2024 Timothy Oliver. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to
@@ -22,9 +22,15 @@
 
 #import <UIKit/UIKit.h>
 
+#if !__has_include(<TOCropViewController/TOCropViewConstants.h>)
 #import "TOCropViewConstants.h"
 #import "TOCropView.h"
 #import "TOCropToolbar.h"
+#else
+#import <TOCropViewController/TOCropViewConstants.h>
+#import <TOCropViewController/TOCropView.h>
+#import <TOCropViewController/TOCropToolbar.h>
+#endif
 
 @class TOCropViewController;
 
@@ -91,7 +97,8 @@
 @property (nonnull, nonatomic, readonly) UIImage *image;
 
 /**
- The minimum croping aspect ratio. If set, user is prevented from setting cropping rectangle to lower aspect ratio than defined by the parameter.
+ The minimum croping aspect ratio. If set, user is prevented from
+ setting cropping rectangle to lower aspect ratio than defined by the parameter.
  */
 @property (nonatomic, assign) CGFloat minimumAspectRatio;
 
@@ -243,7 +250,9 @@
 @property (nonatomic, assign) BOOL rotateClockwiseButtonHidden;
 
 /*
- If this controller is embedded in UINavigationController its navigation bar is hidden by default. Set this property to false to show the navigation bar. This must be set before this controller is presented.
+ If this controller is embedded in UINavigationController its navigation bar
+ is hidden by default. Set this property to false to show the navigation bar.
+ This must be set before this controller is presented.
  */
 @property (nonatomic, assign) BOOL hidesNavigationBar;
 
@@ -281,6 +290,14 @@
  Default is NO.
  */
 @property (nonatomic, assign) BOOL cancelButtonHidden;
+
+/**
+ When enabled, the toolbar is displayed in RTL layout.
+
+ Default is NO.
+ */
+@property (nonatomic, assign) BOOL reverseContentLayout
+;
 
 /** 
  If `showActivitySheetOnDone` is true, then these activity items will 
@@ -320,7 +337,8 @@
  Called when the user has committed the crop action, and provides
  just the cropping rectangle.
  
- @param cropRect A rectangle indicating the crop region of the image the user chose (In the original image's local co-ordinate space)
+ @param cropRect A rectangle indicating the crop region of the image the user chose
+                    (In the original image's local co-ordinate space)
  @param angle The angle of the image when it was cropped
  */
 @property (nullable, nonatomic, strong) void (^onDidCropImageToRect)(CGRect cropRect, NSInteger angle);
@@ -330,7 +348,8 @@
  both the cropped image with crop co-ordinates.
  
  @param image The newly cropped image.
- @param cropRect A rectangle indicating the crop region of the image the user chose (In the original image's local co-ordinate space)
+ @param cropRect A rectangle indicating the crop region of the image the user chose
+                    (In the original image's local co-ordinate space)
  @param angle The angle of the image when it was cropped
  */
 @property (nullable, nonatomic, strong) void (^onDidCropToRect)(UIImage* _Nonnull image, CGRect cropRect, NSInteger angle);
@@ -340,7 +359,8 @@
  image, as well as it's cropping co-ordinates
  
  @param image The newly cropped image, clipped to a circle shape
- @param cropRect A rectangle indicating the crop region of the image the user chose (In the original image's local co-ordinate space)
+ @param cropRect A rectangle indicating the crop region of the image the user chose
+                    (In the original image's local co-ordinate space)
  @param angle The angle of the image when it was cropped
  */
 @property (nullable, nonatomic, strong) void (^onDidCropToCircleImage)(UIImage* _Nonnull image, CGRect cropRect, NSInteger angle);
@@ -382,7 +402,7 @@
  @param aspectRatioPreset The aspect ratio preset
  @param animated Whether the transition to the aspect ratio is animated
  */
-- (void)setAspectRatioPreset:(TOCropViewControllerAspectRatioPreset)aspectRatioPreset animated:(BOOL)animated NS_SWIFT_NAME(setAspectRatioPresent(_:animated:));
+- (void)setAspectRatioPreset:(TOCropViewControllerAspectRatioPreset)aspectRatioPreset animated:(BOOL)animated NS_SWIFT_NAME(setAspectRatioPreset(_:animated:));
 
 /**
  Play a custom animation of the target image zooming to its position in
