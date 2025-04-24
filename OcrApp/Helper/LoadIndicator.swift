@@ -15,7 +15,10 @@ public class LoadIndicator : NSObject{
     func start()  {
         
         DispatchQueue.main.async {
-            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                SVProgressHUD.setContainerView(window)
+            }
             SVProgressHUD.show()
         }
     }

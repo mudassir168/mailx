@@ -56,5 +56,48 @@ import  UIKit
         viewController.present(alert, animated: true, completion: nil);
     }
     
+    static func showAlertWithTextView(title: String, message: String, isMatched: Bool, in viewController: UIViewController, delegate: TextUpdateDelegate?) {
+        // Create UIAlertController with a text view
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        
+        // Add the UITextView to the alert controller's view
+        let textView = UITextView(frame: CGRect(x: 10, y: 50, width: 250, height: viewController.view.frame.height * 0.20))
+        textView.text = message // Set initial text
+        textView.layer.borderColor = UIColor.gray.cgColor
+        textView.layer.borderWidth = 1.0
+        textView.layer.cornerRadius = 5.0
+        textView.keyboardType
+        alertController.view.addSubview(textView)
+        
+        let originalHeight = alertController.view.frame.height
+            var newFrame = alertController.view.frame
+            newFrame.size.height = originalHeight + 100 // Add space to the alert view to accommodate the text view
+            alertController.view.frame = newFrame
+        
+        var height:NSLayoutConstraint = NSLayoutConstraint(
+                item: alertController.view!, attribute: NSLayoutConstraint.Attribute.height,
+                relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil,
+                attribute: NSLayoutConstraint.Attribute.notAnAttribute,
+                multiplier: 1, constant: viewController.view.frame.height * 0.35)
+            alertController.view.addConstraint(height)
+        
+        // Add a "Save" action
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            // Get the updated text
+            let updatedText = textView.text ?? ""
+            
+            // Pass the updated text to the delegate (or closure)
+            delegate?.didUpdateText(updatedText: updatedText, isMatched: isMatched)
+        }
+        alertController.addAction(saveAction)
+        
+        // Add a "Cancel" action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        // Present the alert
+        viewController.present(alertController, animated: true, completion: nil)
+    }
+    
 }
 

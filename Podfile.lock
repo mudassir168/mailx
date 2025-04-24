@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.9.1)
+  - IQKeyboardManager (6.5.19)
   - ObjectMapper (4.4.2)
   - Reachability (3.7.6)
   - SVProgressHUD (2.3.1):
@@ -10,6 +11,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - IQKeyboardManager
   - ObjectMapper
   - Reachability
   - SVProgressHUD
@@ -19,6 +21,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - IQKeyboardManager
     - ObjectMapper
     - Reachability
     - SVProgressHUD
@@ -27,12 +30,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
   ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
   Reachability: fd0ecd23705e2599e4cceeb943222ae02296cbc6
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
 
-PODFILE CHECKSUM: ceb408396457bbd8c345fb846dc78bdd7b8b6812
+PODFILE CHECKSUM: ee120fc1e581b85f52eafc15efbebd25fa1fb40f
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

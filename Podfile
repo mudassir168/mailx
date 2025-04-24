@@ -12,5 +12,6 @@ target 'OcrApp' do
   pod 'Alamofire'
   pod 'TOCropViewController'
   pod 'SVProgressHUD'
+  pod 'IQKeyboardManager'
 
 end

@@ -205,6 +205,85 @@ class ApiCaller{
                 })
         
     }
+    
+    func uploadTextWhenAddressNotMatchedComplete(textGroups:[String],timeStamp: String, isbox : Int, ishandwritten: Int, completion: @escaping (UploadObject?) -> Void){
+        //Set Your URL
+        let api_url = BaseUrlInAPI
+        guard let url = URL(string: api_url) else {
+            return
+        }
+        guard let username = UserDefaults.standard.value(forKey: LoginCreds.UserNameSavedKey) as? String else {
+            completion(nil)
+           return
+        }
+        guard let password = UserDefaults.standard.value(forKey: LoginCreds.PasswordSavedKey) as? String else {
+            completion(nil)
+           return
+        }
+        guard let locId = UserDefaults.standard.value(forKey: Defaults.UserLocIdNameKey) as? Int else {
+            completion(nil)
+           return
+        }
+        let loginString = NSString(format: "%@:%@", username, password)
+        let loginData: NSData = loginString.data(using: String.Encoding.utf8.rawValue)! as NSData
+        let base64LoginString = loginData.base64EncodedString(options: [])
+        debugPrint("base64LoginString ",base64LoginString)
+            
+        var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0 * 1000)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        let parameterDict = NSMutableDictionary()
+        parameterDict.setValue("text", forKey: "action")
+        parameterDict.setValue("ocr", forKey: "object")
+        parameterDict.setValue("\(locId).sample\(timeStamp).png", forKey: "imagename")
+        var groupsString = ""
+        for i in 0..<textGroups.count {
+            groupsString +=  " group\(i + 1):\(textGroups[i])"
+        }
+        parameterDict.setValue(groupsString, forKey: "ocr")
+        parameterDict.setValue(String(isbox), forKey: "isbox")
+        parameterDict.setValue(String(ishandwritten), forKey: "ishand")
+        
+        //Set Image Data
+        
+        // Now Execute
+        AF.upload(multipartFormData: { multiPart in
+            for (key, value) in parameterDict {
+                if let temp = value as? String {
+                    multiPart.append(temp.data(using: .utf8)!, withName: key as! String)
+                }
+            }
+        }, with: urlRequest)
+        .uploadProgress(queue: .main, closure: { progress in
+            //Current upload progress of file
+            print("Upload Progress: \(progress.fractionCompleted)")
+        })
+
+                .responseJSON(completionHandler: { (dataResponse:DataResponse) in
+        
+                    guard let data = dataResponse.data else { return }
+                    let json = try? JSON(data:data)
+        
+                    print("requestLoginCreds json->",json as Any)
+        
+//                    debugPrint("uplload response->",dataResponse.response)
+        
+                    if let remoteObject = json?.object{
+        
+                        print("remoteObject json->",remoteObject as Any)
+        
+                        if let pixaModel = Mapper<UploadObject>().map(JSONObject: remoteObject){
+                            completion(pixaModel)
+                        }
+        
+                    }else{
+                        completion(nil)
+                    }
+        
+        
+                })
+        
+    }
 }
 
 

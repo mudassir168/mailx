@@ -7,6 +7,7 @@
 
 import UIKit
 import Sentry
+import IQKeyboardManager
 
 
 @main
@@ -41,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userNotLoggedInRoot()
 
         }
+        IQKeyboardManager.shared().isEnabled = true
         return true
     }
 
@@ -76,6 +78,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         rootNC.isNavigationBarHidden = true
         window?.rootViewController = rootNC
         window?.makeKeyAndVisible()
+    }
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if let topVC = getTopViewController(), topVC is CameraViewController {
+                return UIInterfaceOrientationMask.landscape
+            } else {
+                return UIInterfaceOrientationMask.portrait
+            }
+        }
+    
+    func getTopViewController() -> UIViewController? {
+        var topVC = UIApplication.shared.windows.first?.rootViewController
+        while let presentedVC = topVC?.presentedViewController {
+            topVC = presentedVC
+        }
+        return topVC
     }
 }
 
